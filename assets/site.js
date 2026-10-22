@@ -12,6 +12,39 @@
     setTimeout(pronto, 1200);
   } else requestAnimationFrame(() => requestAnimationFrame(pronto));
 
+  // fumaça do hero: shader ao vivo no desktop, MP4 no celular
+  const hero = document.querySelector(".hero");
+  const tela = document.getElementById("fumaca");
+  const video = document.getElementById("fumaca-video");
+  if (hero && !reduz) {
+    if (matchMedia("(min-width: 901px)").matches && tela && window.fumacaGL) {
+      const f = window.fumacaGL(tela);
+      if (f) {
+        let visivel = true, t0 = performance.now(), quadro = 0;
+        const CICLO = 14000, RAIO = .22;
+        const medir = () => {
+          const dpr = Math.min(devicePixelRatio || 1, 1.5);
+          tela.width = Math.round(tela.clientWidth * dpr * .75);
+          tela.height = Math.round(tela.clientHeight * dpr * .75);
+        };
+        medir();
+        addEventListener("resize", medir);
+        const laco = agora => {
+          if (visivel && !document.hidden) f.desenhar(((agora - t0) % CICLO) / CICLO * Math.PI * 2, RAIO, 0);
+          quadro = requestAnimationFrame(laco);
+        };
+        quadro = requestAnimationFrame(laco);
+        new IntersectionObserver(es => { visivel = es[0].isIntersecting; }).observe(hero);
+        setTimeout(() => tela.classList.add("liga"), 400);
+      }
+    } else if (video) {
+      video.src = video.dataset.src;
+      const toca = () => video.play().then(() => video.classList.add("liga")).catch(() => video.classList.add("liga"));
+      video.addEventListener("loadeddata", toca, { once: true });
+      video.load();
+    }
+  }
+
   // topo fica sólido ao rolar; botão do WhatsApp aparece depois do hero
   const topo = document.querySelector(".topo");
   const zap = document.querySelector(".zap");

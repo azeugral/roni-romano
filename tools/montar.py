@@ -35,7 +35,7 @@ def main():
     cab = idx.split("<body>")[0]
     topo = re.search(r"<!--TOPO-->.*?<!--/TOPO-->", idx, re.S).group(0)
     rod = re.search(r"<!--RODAPE-->.*?<!--/RODAPE-->", idx, re.S).group(0)
-    fim = '<script src="assets/site.js?v=2" defer></script>\n</body>\n</html>\n'
+    fim = '<script src="assets/site.js?v=3" defer></script>\n</body>\n</html>\n'
 
     def pagina(titulo, desc, corpo, ativo=None):
         c = re.sub(r"<title>.*?</title>", f"<title>{titulo}</title>", cab)

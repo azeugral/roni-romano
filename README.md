@@ -10,21 +10,23 @@ Publicado em https://azeugral.github.io/roni-romano/, com `noindex` até a aprov
 - `trabalhos.html`: 40 fotos em grade 4:5, com filtros (Coloração, Corte, Make e penteado) e foto ampliada.
 - `404.html`
 
-## Identidade (v2, 22/10)
+## Identidade (versão final de apresentação, 22/10)
 
-- **Cores:** café `#16110d`, caramelo `#b98250` e creme `#f6f1ea`, tiradas dos posts dele.
-- **Fontes:** Playfair Display nos títulos, a mesma família dos carrosséis dele, e Manrope no texto. A Bodoni Moda da v1 foi trocada por ser difícil de ler.
-- **Forma:** fotos principais em arco, como os espelhos do salão, com moldura caramelo fina.
-- **Movimento:** o arco do hero se abre, o nome sobe, uma faixa de serviços corre devagar, os títulos entram por máscara e as fotos em arco ganham paralaxe leve no desktop. Tudo na curva `cubic-bezier(.16,.84,.32,1)` e desligado com `prefers-reduced-motion`.
-- **Foto do hero:** `../hero-para-melhorar/roni-hero-hd.png`, a versão melhorada do post 037 enviada pelo Daniel. O `processar.py` usa essa versão quando ela existe.
-- **Portfólio:** sem numeração. A categoria aparece em itálico ao passar o mouse; no celular, aparece sempre.
+- **Logo oficial:** `../_ref/logo/logo-oficial.png`, monograma RR dourado + "RONI ROMANO". O `tools/logo.py` recorta o monograma e o letreiro para o cabeçalho, a logo completa para o rodapé, e gera as favicons (RR dourado no café) e o `og.jpg`.
+- **Cores:** café `#16110d`, caramelo `#b98250` e creme `#f6f1ea`, que conversam com o dourado da logo.
+- **Fontes:** Playfair Display nos títulos e Manrope no texto.
+- **Hero:** texto à esquerda e retrato à direita em altura total (foto melhorada do post 037, `../hero-para-melhorar/roni-hero-hd.png`). Uma fumaça leve creme/caramelo corre à esquerda: shader ao vivo no desktop (`assets/fumaca.js`) e MP4 em loop no celular (`assets/video/fumaca-celular.mp4`, gerado por `tools/gerar_fumaca.py`).
+- **Forma:** serviços e portfólio em fotos retas 4:5; o arco aparece no "Sobre", nas etapas do atendimento e no mapa.
+- **Movimento:** curva `cubic-bezier(.16,.84,.32,1)`, faixa de serviços correndo, títulos por máscara e paralaxe leve no desktop. Tudo desligado com `prefers-reduced-motion`.
+- **Portfólio:** sem numeração; a categoria aparece em itálico.
 
 ## Ferramentas
 
 ```
 python -I tools/processar.py   # recorta as fotos de ../_ref/ig em 4:5 (640 e 1080 px, webp)
 python -I tools/montar.py      # injeta a grade no index e monta trabalhos.html e 404.html
-python -I tools/og.py          # prévia de link (og.jpg) e favicons
+python -I tools/logo.py        # logo, favicons e prévia de link (og.jpg)
+python -I tools/gerar_fumaca.py # vídeo da fumaça do celular (e --teste para um quadro)
 ```
 
 Os originais estão em `../_ref/ig`: 168 posts extraídos do Instagram em 22/10/2026. As legendas ficam em `../_ref/legendas.txt` e as folhas de contato em `../_ref/folhas`.
@@ -39,7 +41,6 @@ Os originais estão em `../_ref/ig`: 168 posts extraídos do Instagram em 22/10/
 - [ ] **Formações**: os nomes foram tirados das legendas (Redken, Llongueras, Mermaid Hair Co., Studio Immagine/Silvana Lopes, HCF Brasil, Hair Summit, L'Oréal). Confirmar a grafia e se ele quer citar todas.
 - [ ] **Valores**: não foram publicados.
 - [ ] **Fotos de clientes**: confirmar que as clientes autorizam aparecer no site (já estão públicas no perfil dele).
-- [ ] **Logo**: hoje o nome está composto em Bodoni Moda. Se ele tiver logo ou assinatura, substituir.
 - [ ] **Domínio** (sugestão: roniromano.com.br) e remover o `noindex`.
 
 Site por [L R G Z](https://lrgz.com.br).

@@ -7,8 +7,9 @@
 <meta name="description" content="Corte visagista, coloração, coloração pessoal, noivas e maquiagem com Roni Romano, Especialista Redken. Atendimento no Beleza Urbana Panamby, Morumbi, São Paulo.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#16110d">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -16,15 +17,15 @@
 <meta property="og:title" content="Roni Romano · Hair Design e Visagismo">
 <meta property="og:description" content="Corte, cor e imagem planejados a partir dos seus traços. Morumbi, São Paulo.">
 <meta property="og:url" content="https://azeugral.github.io/roni-romano/">
-<meta property="og:image" content="https://azeugral.github.io/roni-romano/og.jpg?v=2">
+<meta property="og:image" content="https://azeugral.github.io/roni-romano/og.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/roni-arco-1080.webp" imagesrcset="assets/img/roni-arco-640.webp 640w, assets/img/roni-arco-1080.webp 942w" imagesizes="(max-width:640px) 74vw, 430px">
-<link rel="stylesheet" href="assets/style.css?v=2">
+<link rel="preload" as="image" href="assets/img/roni-hero-1080.webp" imagesrcset="assets/img/roni-hero-640.webp 640w, assets/img/roni-hero-1080.webp 942w" imagesizes="(max-width:900px) 100vw, 50vw">
+<link rel="stylesheet" href="assets/style.css?v=3">
 <script>document.documentElement.classList.add("js")</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"HairSalon","name":"Roni Romano Hair Design","description":"Hair design, visagismo, coloração, coloração pessoal, noivas e maquiagem.","telephone":"+55 11 98299-1393","address":{"@type":"PostalAddress","streetAddress":"Rua Deputado João Sussumu Hirata, 43","addressLocality":"São Paulo","addressRegion":"SP","postalCode":"05715-010","addressCountry":"BR"},"sameAs":["https://www.instagram.com/roniromano/"]}
@@ -35,7 +36,7 @@
 <!--TOPO-->
 <header class="topo">
   <div class="caixa">
-    <a class="marca" href="./#inicio" aria-label="Roni Romano, início">Roni <i>Romano</i></a>
+    <a class="marca" href="./#inicio" aria-label="Roni Romano, início"><img class="marca__rr" src="assets/img/logo-rr.png" width="307" height="240" alt=""><img class="marca__nome" src="assets/img/logo-nome.png" width="1026" height="72" alt="Roni Romano"></a>
     <button class="abre-menu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     <nav class="menu" id="menu" aria-label="Principal">
       <a href="./#servicos">Serviços</a>
@@ -50,26 +51,25 @@
 
 <main id="conteudo">
 <section class="hero escuro" id="inicio">
-  <div class="caixa">
-    <div class="hero__retrato">
-      <span class="hero__moldura" aria-hidden="true"></span>
-      <figure class="hero__arco">
-        <img src="assets/img/roni-arco-1080.webp" srcset="assets/img/roni-arco-640.webp 640w, assets/img/roni-arco-1080.webp 942w" sizes="(max-width:640px) 74vw, 430px" width="942" height="1303" alt="Roni Romano de blusa preta, sorrindo, em estúdio escuro" fetchpriority="high">
-      </figure>
-    </div>
-    <h1><span class="entra" style="--d:0">Roni <em>Romano</em></span></h1>
-    <p class="hero__sub entra" style="--d:1">Hair design, visagismo e coloração pessoal</p>
-    <p class="lead entra" style="--d:2">Corte, cor e maquiagem planejados a partir dos seus traços, da sua rotina e de como você quer ser vista.</p>
-    <div class="hero__acoes entra" style="--d:3">
+  <canvas class="hero__fumaca" id="fumaca" aria-hidden="true"></canvas>
+  <video class="hero__fumaca hero__fumaca--video" id="fumaca-video" muted loop playsinline webkit-playsinline disablepictureinpicture preload="none" poster="assets/img/fumaca-poster.webp" data-src="assets/video/fumaca-celular.mp4" aria-hidden="true"></video>
+  <div class="hero__texto">
+    <p class="chapeu entra" style="--d:0">Hair design, visagismo e coloração pessoal</p>
+    <h1><span class="entra" style="--d:1">Roni</span><span class="entra" style="--d:2"><em>Romano</em></span></h1>
+    <p class="lead entra" style="--d:3">Corte, cor e maquiagem planejados a partir dos seus traços, da sua rotina e de como você quer ser vista.</p>
+    <div class="hero__acoes entra" style="--d:4">
       <a class="btn" href="#agendar">Agendar atendimento</a>
       <a class="btn btn--linha" href="#trabalhos">Ver trabalhos</a>
     </div>
-    <ul class="hero__selos entra" style="--d:4">
+    <ul class="hero__selos entra" style="--d:5">
       <li>Especialista Redken</li>
       <li>Formação Llongueras</li>
       <li>Morumbi, São Paulo</li>
     </ul>
   </div>
+  <figure class="hero__foto">
+    <img src="assets/img/roni-hero-1080.webp" srcset="assets/img/roni-hero-640.webp 640w, assets/img/roni-hero-1080.webp 942w" sizes="(max-width:900px) 100vw, 50vw" width="942" height="1570" alt="Roni Romano de blusa preta, sentado, sorrindo, em estúdio escuro" fetchpriority="high">
+  </figure>
 </section>
 
 <div class="faixa" aria-hidden="true">
@@ -274,7 +274,7 @@
 <!--RODAPE-->
 <footer class="rodape">
   <div class="caixa">
-    <p class="rodape__nome">Roni <em>Romano</em></p>
+    <img class="rodape__logo" src="assets/img/logo.png" width="1000" height="523" alt="Roni Romano" loading="lazy">
     <nav aria-label="Rodapé">
       <a href="./#servicos">Serviços</a>
       <a href="trabalhos.html">Trabalhos</a>
@@ -294,6 +294,7 @@
   <button class="prox" type="button" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
 </div>
 <!--/RODAPE-->
-<script src="assets/site.js?v=2" defer></script>
+<script src="assets/fumaca.js?v=2" defer></script>
+<script src="assets/site.js?v=3" defer></script>
 </body>
 </html>
