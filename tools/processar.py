@@ -18,6 +18,8 @@ SAIDA.mkdir(parents=True, exist_ok=True)
 FOTOS = {
     # retratos do Roni
     "roni-hero": ("037", .45, 3 / 5, 0),
+    "roni-arco": ("037", .36, 3 / 4.15, 0),
+    "roni-avatar": ("123", .22, 1, .35),
     "roni-sobre": ("065", .30, 4 / 5, .30),
     "roni-paris": ("013", .45, 4 / 5, 0),
     "roni-palco": ("012", .40, 4 / 5, 0),
@@ -49,7 +51,12 @@ PORTFOLIO = [
 ]
 
 
+HD = RAIZ.parent / "hero-para-melhorar" / "roni-hero-hd.png"  # versão melhorada do post 037
+
+
 def arquivo(post):
+    if post == "037" and HD.exists():
+        return str(HD)
     return glob.glob(str(ORIG / f"{post}*.jpg"))[0]
 
 

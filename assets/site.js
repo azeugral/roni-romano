@@ -48,6 +48,28 @@
     revelaveis.forEach(el => io.observe(el));
   } else revelaveis.forEach(el => el.classList.add("visto"));
 
+  // paralaxe leve nas fotos em arco (só em telas grandes)
+  const fotos = [...document.querySelectorAll("img[data-paralaxe]")];
+  const telaGrande = matchMedia("(min-width: 901px)");
+  let pedido = false;
+  const mover = () => {
+    pedido = false;
+    const h = innerHeight;
+    fotos.forEach(img => {
+      const r = img.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > h) return;
+      const p = (r.top + r.height / 2 - h / 2) / (h / 2 + r.height / 2); // -1 a 1
+      img.style.transform = `translate3d(0,${(-5 - p * 5).toFixed(2)}%,0)`;
+    });
+  };
+  const pedir = () => { if (!pedido) { pedido = true; requestAnimationFrame(mover); } };
+  const ligaParalaxe = () => {
+    if (telaGrande.matches && !reduz && fotos.length) { addEventListener("scroll", pedir, { passive: true }); mover(); }
+    else { removeEventListener("scroll", pedir); fotos.forEach(i => { i.style.transform = ""; }); }
+  };
+  ligaParalaxe();
+  telaGrande.addEventListener("change", ligaParalaxe);
+
   // filtros da página de trabalhos
   const filtros = document.querySelectorAll(".filtros button");
   filtros.forEach(b => b.addEventListener("click", () => {

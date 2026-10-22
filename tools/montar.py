@@ -17,9 +17,8 @@ ALT = {"cor": "Resultado de coloração", "corte": "Resultado de corte", "make":
 def obra(i, cat, atraso):
     n = f"{i:02d}"
     return (f'      <figure class="obra revela" data-cat="{cat}" style="--d:{atraso}">'
-            f'<button type="button" data-grande="assets/img/p{n}-1080.webp" data-leg="Nº {n} · {CAT[cat]}" data-alt="{ALT[cat]} feito por Roni Romano" aria-label="Ampliar foto {n}, {CAT[cat]}">'
-            f'<img src="assets/img/p{n}-640.webp" width="640" height="800" alt="{ALT[cat]} feito por Roni Romano" loading="lazy" decoding="async"></button>'
-            f'<figcaption><b>Nº {n}</b><span>{CAT[cat]}</span></figcaption></figure>')
+            f'<button type="button" data-grande="assets/img/p{n}-1080.webp" data-leg="{CAT[cat]}" data-tipo="{CAT[cat]}" data-alt="{ALT[cat]} feito por Roni Romano" aria-label="Ampliar foto: {CAT[cat]}">'
+            f'<img src="assets/img/p{n}-640.webp" width="640" height="800" alt="{ALT[cat]} feito por Roni Romano" loading="lazy" decoding="async"></button></figure>')
 
 
 def entre(texto, marca, novo):
@@ -36,7 +35,7 @@ def main():
     cab = idx.split("<body>")[0]
     topo = re.search(r"<!--TOPO-->.*?<!--/TOPO-->", idx, re.S).group(0)
     rod = re.search(r"<!--RODAPE-->.*?<!--/RODAPE-->", idx, re.S).group(0)
-    fim = '<script src="assets/site.js?v=1" defer></script>\n</body>\n</html>\n'
+    fim = '<script src="assets/site.js?v=2" defer></script>\n</body>\n</html>\n'
 
     def pagina(titulo, desc, corpo, ativo=None):
         c = re.sub(r"<title>.*?</title>", f"<title>{titulo}</title>", cab)
@@ -50,8 +49,8 @@ def main():
                       for k, v in [("todos", "Todos"), ("cor", "Coloração"), ("corte", "Corte"), ("make", "Make e penteado")])
     corpo = f"""<section class="pagina-topo escuro">
   <div class="caixa">
-    <p class="rotulo revela">Portfólio</p>
-    <h1 class="revela" style="--d:1">Trabalhos</h1>
+    <p class="chapeu revela">Portfólio</p>
+    <h1 class="revela" style="--d:1"><span class="mascara"><span>Trabalhos</span></span></h1>
     <p class="lead revela" style="--d:2">Cortes, colorações e maquiagens feitos no salão. Toque em uma foto para ver maior.</p>
   </div>
 </section>
@@ -69,8 +68,8 @@ def main():
                                                 corpo, "trabalhos.html"), encoding="utf-8")
     nao = """<section class="pagina-topo escuro" style="min-height:80svh">
   <div class="caixa">
-    <p class="rotulo">Erro 404</p>
-    <h1>Página não encontrada</h1>
+    <p class="chapeu">Erro 404</p>
+    <h1>Página <em>não encontrada</em></h1>
     <p class="lead" style="margin-bottom:34px">O endereço pode ter mudado. Volte para o início ou fale comigo pelo WhatsApp.</p>
     <a class="btn" href="./">Voltar ao início</a>
   </div>

@@ -10,13 +10,14 @@ Publicado em https://azeugral.github.io/roni-romano/, com `noindex` até a aprov
 - `trabalhos.html`: 40 fotos em grade 4:5, com filtros (Coloração, Corte, Make e penteado) e foto ampliada.
 - `404.html`
 
-## Identidade
+## Identidade (v2, 22/10)
 
-A identidade vem dos posts editoriais dele no Instagram:
-- **Cores:** café `#15100c`, caramelo `#b37b45` e creme `#f4eee5`.
-- **Fontes:** Bodoni Moda (didone, como os títulos dos carrosséis dele) nos títulos, IBM Plex Sans no texto e IBM Plex Mono nos rótulos.
-- **Botões:** retos, com fundo que desliza no hover.
-- **Movimento:** curva `cubic-bezier(.16,.84,.32,1)` em todas as transições. Respeita `prefers-reduced-motion`.
+- **Cores:** café `#16110d`, caramelo `#b98250` e creme `#f6f1ea`, tiradas dos posts dele.
+- **Fontes:** Playfair Display nos títulos, a mesma família dos carrosséis dele, e Manrope no texto. A Bodoni Moda da v1 foi trocada por ser difícil de ler.
+- **Forma:** fotos principais em arco, como os espelhos do salão, com moldura caramelo fina.
+- **Movimento:** o arco do hero se abre, o nome sobe, uma faixa de serviços corre devagar, os títulos entram por máscara e as fotos em arco ganham paralaxe leve no desktop. Tudo na curva `cubic-bezier(.16,.84,.32,1)` e desligado com `prefers-reduced-motion`.
+- **Foto do hero:** `../hero-para-melhorar/roni-hero-hd.png`, a versão melhorada do post 037 enviada pelo Daniel. O `processar.py` usa essa versão quando ela existe.
+- **Portfólio:** sem numeração. A categoria aparece em itálico ao passar o mouse; no celular, aparece sempre.
 
 ## Ferramentas
 
