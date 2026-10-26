@@ -18,8 +18,8 @@ SAIDA.mkdir(parents=True, exist_ok=True)
 FOTOS = {
     # retratos do Roni
     # "c1" a "c6" são as fotos que o Roni mandou em 26/10 (../_ref/cliente-fotos-2610)
-    "roni-hero": ("c4", .45, 3 / 5, 0),
-    "roni-arco": ("c4", .36, 3 / 4.15, 0),
+    "roni-hero": ("037", .45, 3 / 5, 0),
+    "roni-arco": ("037", .36, 3 / 4.15, 0),
     "roni-avatar": ("123", .22, 1, .35),
     "roni-sobre": ("c1", .42, 4 / 5, 0),
     "roni-palco": ("c2", .36, 4 / 5, 0),
