@@ -85,6 +85,36 @@
     abre.setAttribute("aria-expanded", String(aberto));
   });
   document.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", fecharMenu));
+
+  // links internos (logo, menu, "agendar") rolam suave até o destino em vez de saltar;
+  // a duração cresce com a distância e o toque ou a roda do mouse interrompem a animação
+  let rolagem = 0;
+  const parar = () => cancelAnimationFrame(rolagem);
+  ["wheel", "touchstart", "keydown"].forEach(ev => addEventListener(ev, parar, { passive: true }));
+  const rolarAte = destino => {
+    parar();
+    const inicio = scrollY, dist = destino - inicio;
+    if (reduz || Math.abs(dist) < 2) { scrollTo(0, destino); return; }
+    const dur = Math.min(1300, Math.max(550, Math.abs(dist) * .35)), t0 = performance.now();
+    const curva = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const passo = agora => {
+      const t = Math.min((agora - t0) / dur, 1);
+      scrollTo(0, inicio + dist * curva(t));
+      if (t < 1) rolagem = requestAnimationFrame(passo);
+    };
+    rolagem = requestAnimationFrame(passo);
+  };
+  document.querySelectorAll('a[href*="#"]').forEach(a => a.addEventListener("click", e => {
+    const url = new URL(a.href, location.href);
+    const mesma = url.pathname.replace(/index\.html$/, "") === location.pathname.replace(/index\.html$/, "");
+    const alvo = url.hash && document.getElementById(decodeURIComponent(url.hash.slice(1)));
+    if (!mesma || !alvo || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    fecharMenu();
+    const folga = parseFloat(getComputedStyle(doc).scrollPaddingTop) || 0;
+    rolarAte(alvo.id === "inicio" ? 0 : Math.max(0, alvo.getBoundingClientRect().top + scrollY - folga));
+    history.pushState(null, "", alvo.id === "inicio" ? url.pathname : url.hash);
+  }));
   addEventListener("keydown", e => { if (e.key === "Escape") fecharMenu(); });
   matchMedia("(min-width: 901px)").addEventListener("change", e => e.matches && fecharMenu());
 

@@ -1,11 +1,12 @@
 """Recorta a logo oficial (../_ref/logo/logo-oficial.png, dourada em fundo transparente) e gera
-as versões do site, as favicons e a prévia de link (og.jpg).
+as versões do site e as favicons.
 
 Uso: python -I tools/logo.py
 - assets/img/logo-rr.png      monograma RR
 - assets/img/logo-nome.png    letreiro RONI ROMANO
 - assets/img/logo.png         logo completa (rodapé)
 - favicon-32.png, favicon-192.png, apple-touch-icon.png, favicon.ico
+(a prévia de link, og.jpg, sai de tools/og.py)
 """
 from pathlib import Path
 
@@ -78,26 +79,9 @@ def main():
     icone(180, .2, arredondado=False).convert("RGB").save(RAIZ / "apple-touch-icon.png")  # o iOS arredonda sozinho
     icone(48, .13).save(RAIZ / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
 
-    # prévia de link: foto do hero à direita, logo à esquerda
-    W, H = 1200, 630
-    og = Image.new("RGB", (W, H), CAFE)
-    foto = Image.open(RAIZ / "assets/img/roni-hero-1080.webp").convert("RGB")
-    fw = 540
-    foto = foto.resize((fw, round(foto.height * fw / foto.width)), Image.LANCZOS)
-    y = int(foto.height * .05)
-    og.paste(foto.crop((0, y, fw, y + H)), (W - fw, 0))
-    mask = Image.new("L", (240, H))
-    d = ImageDraw.Draw(mask)
-    for x in range(240):
-        d.line([(x, 0), (x, H)], fill=int(255 * (1 - x / 240) ** 1.4))
-    og.paste(Image.new("RGB", (240, H), CAFE), (W - fw, 0), mask)
-    lg = completo.copy()
-    lg.thumbnail((560, 380), Image.LANCZOS)
-    og.paste(lg, (70 + (560 - lg.width) // 2, (H - lg.height) // 2), lg)
-    og.save(RAIZ / "og.jpg", quality=88)
     for f in ("favicon.svg",):
         (RAIZ / f).unlink(missing_ok=True)
-    print("logo, favicons e og.jpg gerados", rr.size, nome.size)
+    print("logo e favicons gerados", rr.size, nome.size)
 
 
 if __name__ == "__main__":
