@@ -17,12 +17,13 @@ SAIDA.mkdir(parents=True, exist_ok=True)
 # nome no site: (post, foco vertical, proporção L/A, recorte de baixo para tirar texto do post)
 FOTOS = {
     # retratos do Roni
-    "roni-hero": ("037", .45, 3 / 5, 0),
-    "roni-arco": ("037", .36, 3 / 4.15, 0),
+    # "c1" a "c6" são as fotos que o Roni mandou em 26/10 (../_ref/cliente-fotos-2610)
+    "roni-hero": ("c4", .45, 3 / 5, 0),
+    "roni-arco": ("c4", .36, 3 / 4.15, 0),
     "roni-avatar": ("123", .22, 1, .35),
-    "roni-sobre": ("065", .30, 4 / 5, .30),
-    "roni-paris": ("013", .45, 4 / 5, 0),
-    "roni-palco": ("012", .40, 4 / 5, 0),
+    "roni-sobre": ("c1", .42, 4 / 5, 0),
+    "roni-palco": ("c2", .36, 4 / 5, 0),
+    "roni-hairshow": ("c3", .55, 4 / 5, 0),
     # serviços
     "serv-corte": ("154", .45, 4 / 5, 0),
     "serv-cor": ("049", .45, 4 / 5, 0),
@@ -52,9 +53,12 @@ PORTFOLIO = [
 
 
 HD = RAIZ.parent / "hero-para-melhorar" / "roni-hero-hd.png"  # versão melhorada do post 037
+CLIENTE = RAIZ.parent / "_ref" / "cliente-fotos-2610"
 
 
 def arquivo(post):
+    if post.startswith("c"):
+        return str(CLIENTE / f"foto{post[1:]}.jpg")
     if post == "037" and HD.exists():
         return str(HD)
     return glob.glob(str(ORIG / f"{post}*.jpg"))[0]
