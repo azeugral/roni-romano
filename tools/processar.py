@@ -14,7 +14,8 @@ ORIG = RAIZ.parent / "_ref" / "ig"
 SAIDA = RAIZ / "assets" / "img"
 SAIDA.mkdir(parents=True, exist_ok=True)
 
-# nome no site: (post, foco vertical, proporção L/A, recorte de baixo para tirar texto do post)
+# nome no site: (post, foco vertical, proporção L/A, recorte de baixo para tirar texto do post[, aproximar])
+# aproximar = (centro horizontal, fração da largura): corta as laterais antes, para fechar no Roni
 FOTOS = {
     # retratos do Roni
     # "c1" a "c6" são as fotos que o Roni mandou em 26/10 (../_ref/cliente-fotos-2610)
@@ -24,6 +25,8 @@ FOTOS = {
     "roni-sobre": ("c1", .42, 4 / 5, 0),
     "roni-palco": ("c2", .36, 4 / 5, 0),
     "roni-hairshow": ("c3", .55, 4 / 5, 0),
+    "roni-entrevista": ("c5", .50, 4 / 5, 0, (.44, .66)),
+    "roni-premiacao": ("c6", .50, 4 / 5, 0, (.52, .85)),
     # serviços
     "serv-corte": ("154", .45, 4 / 5, 0),
     "serv-cor": ("049", .45, 4 / 5, 0),
@@ -88,8 +91,13 @@ def salvar(im, nome):
 
 
 def main():
-    for nome, (post, foco, prop, corte) in FOTOS.items():
+    for nome, (post, foco, prop, corte, *aprox) in FOTOS.items():
         im = Image.open(arquivo(post)).convert("RGB")
+        if aprox:
+            cx, frac = aprox[0]
+            nw = int(im.width * frac)
+            x = int(min(max(cx * im.width - nw / 2, 0), im.width - nw))
+            im = im.crop((x, 0, x + nw, im.height))
         salvar(recortar(im, foco, prop, corte), nome)
     for i, (post, cat, foco) in enumerate(PORTFOLIO, 1):
         im = Image.open(arquivo(post)).convert("RGB")

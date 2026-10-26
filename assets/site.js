@@ -12,38 +12,54 @@
     setTimeout(pronto, 1200);
   } else requestAnimationFrame(() => requestAnimationFrame(pronto));
 
-  // fumaça do hero: shader ao vivo no desktop, MP4 no celular
-  const hero = document.querySelector(".hero");
-  const tela = document.getElementById("fumaca");
-  const video = document.getElementById("fumaca-video");
-  if (hero && !reduz) {
-    if (matchMedia("(min-width: 901px)").matches && tela && window.fumacaGL) {
+  // fumaça: shader ao vivo no desktop, MP4 no celular; só anima com a seção na tela
+  const desktop = matchMedia("(min-width: 901px)").matches;
+  const fumaca = (secao, tela, video, { escala = .75, lado = 0, ciclo = 14000, fps = 60, atraso = 400 } = {}) => {
+    if (!secao || reduz) return;
+    if (desktop && tela && window.fumacaGL) {
       const f = window.fumacaGL(tela);
-      if (f) {
-        let visivel = true, t0 = performance.now(), quadro = 0;
-        const CICLO = 14000, RAIO = .22;
-        const medir = () => {
-          const dpr = Math.min(devicePixelRatio || 1, 1.5);
-          tela.width = Math.round(tela.clientWidth * dpr * .75);
-          tela.height = Math.round(tela.clientHeight * dpr * .75);
-        };
-        medir();
-        addEventListener("resize", medir);
-        const laco = agora => {
-          if (visivel && !document.hidden) f.desenhar(((agora - t0) % CICLO) / CICLO * Math.PI * 2, RAIO, 0);
-          quadro = requestAnimationFrame(laco);
-        };
-        quadro = requestAnimationFrame(laco);
-        new IntersectionObserver(es => { visivel = es[0].isIntersecting; }).observe(hero);
-        setTimeout(() => tela.classList.add("liga"), 400);
-      }
+      if (!f) return;
+      let visivel = false, ultimo = 0;
+      const t0 = performance.now(), passo = 1000 / fps - 2;
+      const medir = () => {
+        const dpr = Math.min(devicePixelRatio || 1, 1.5);
+        tela.width = Math.round(tela.clientWidth * dpr * escala);
+        tela.height = Math.round(tela.clientHeight * dpr * escala);
+      };
+      medir();
+      addEventListener("resize", medir);
+      const laco = agora => {
+        if (visivel && !document.hidden && agora - ultimo >= passo) {
+          ultimo = agora;
+          f.desenhar(((agora - t0) % ciclo) / ciclo * Math.PI * 2, .22, lado);
+        }
+        requestAnimationFrame(laco);
+      };
+      requestAnimationFrame(laco);
+      new IntersectionObserver(es => {
+        visivel = es[0].isIntersecting;
+        if (visivel && !tela.classList.contains("liga")) setTimeout(() => tela.classList.add("liga"), atraso);
+      }).observe(secao);
     } else if (video) {
-      video.src = video.dataset.src;
-      const toca = () => video.play().then(() => video.classList.add("liga")).catch(() => video.classList.add("liga"));
-      video.addEventListener("loadeddata", toca, { once: true });
-      video.load();
+      // o vídeo só baixa quando a seção chega perto e pausa fora da tela (bateria e dados no celular)
+      let carregado = false;
+      new IntersectionObserver(es => {
+        const perto = es[0].isIntersecting;
+        if (perto && !carregado) {
+          carregado = true;
+          video.src = video.dataset.src;
+          video.addEventListener("loadeddata", () => video.classList.add("liga"), { once: true });
+          video.load();
+        }
+        if (perto) video.play().catch(() => video.classList.add("liga"));
+        else if (carregado) video.pause();
+      }, { rootMargin: "200px 0px" }).observe(secao);
     }
-  }
+  };
+  fumaca(document.querySelector(".hero"), document.getElementById("fumaca"), document.getElementById("fumaca-video"));
+  // no agendamento é mais leve: meia resolução, 30 quadros, ciclo mais lento e mais espalhada
+  fumaca(document.getElementById("agendar"), document.getElementById("fumaca-agendar"), document.getElementById("fumaca-agendar-video"),
+    { escala: .5, lado: .55, ciclo: 20000, fps: 30, atraso: 0 });
 
   // topo fica sólido ao rolar; botão do WhatsApp aparece depois do hero
   const topo = document.querySelector(".topo");

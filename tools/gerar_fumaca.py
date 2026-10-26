@@ -15,7 +15,7 @@ from playwright.sync_api import sync_playwright
 RAIZ = Path(__file__).resolve().parent.parent
 SAIDA = RAIZ / "assets" / "video"
 FPS, SEGUNDOS, RAIO = 24, 14, .22
-VERSOES = [("fumaca-celular", 540, 760, 1.0)]  # no celular a fumaça ocupa a largura toda (lado=1)
+VERSOES = [("fumaca-celular", 720, 1014, 1.0)]  # no celular a fumaça ocupa a largura toda (lado=1); 720 px para não borrar em tela densa
 
 
 def abrir(pw, w, h):
@@ -46,7 +46,7 @@ def main():
             mp4 = SAIDA / f"{nome}.mp4"
             enc = subprocess.Popen([imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "image2pipe",
                                     "-framerate", str(FPS), "-c:v", "png", "-i", "-", "-c:v", "libx264", "-preset", "slow",
-                                    "-crf", "26", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", str(mp4)],
+                                    "-crf", "24", "-x264-params", "aq-mode=3", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", str(mp4)],
                                    stdin=subprocess.PIPE)
             b, pg = abrir(pw, w, h)
             total = FPS * SEGUNDOS

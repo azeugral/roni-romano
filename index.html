@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/roni-hero-1080.webp" imagesrcset="assets/img/roni-hero-640.webp 640w, assets/img/roni-hero-1080.webp 942w" imagesizes="(max-width:900px) 100vw, 50vw">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=20261026">
 <script>document.documentElement.classList.add("js")</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"HairSalon","name":"Roni Romano Hair Design","description":"Hair design, visagismo, coloração, coloração pessoal, noivas e maquiagem.","telephone":"+55 11 98299-1393","address":{"@type":"PostalAddress","streetAddress":"Rua Deputado João Sussumu Hirata, 43","addressLocality":"São Paulo","addressRegion":"SP","postalCode":"05715-010","addressCountry":"BR"},"sameAs":["https://www.instagram.com/roniromano/"]}
@@ -52,7 +52,7 @@
 <main id="conteudo">
 <section class="hero escuro" id="inicio">
   <canvas class="hero__fumaca" id="fumaca" aria-hidden="true"></canvas>
-  <video class="hero__fumaca hero__fumaca--video" id="fumaca-video" muted loop playsinline webkit-playsinline disablepictureinpicture preload="none" poster="assets/img/fumaca-poster.webp" data-src="assets/video/fumaca-celular.mp4" aria-hidden="true"></video>
+  <video class="hero__fumaca hero__fumaca--video" id="fumaca-video" muted loop playsinline webkit-playsinline disablepictureinpicture preload="none" poster="assets/img/fumaca-poster.webp?v=20261026" data-src="assets/video/fumaca-celular.mp4?v=20261026" aria-hidden="true"></video>
   <div class="hero__texto">
     <p class="chapeu entra" style="--d:0">Hair design, visagismo e coloração pessoal</p>
     <h1><span class="entra" style="--d:1">Roni</span><span class="entra" style="--d:2"><em>Romano</em></span></h1>
@@ -71,13 +71,6 @@
     <img src="assets/img/roni-hero-1080.webp" srcset="assets/img/roni-hero-640.webp 640w, assets/img/roni-hero-1080.webp 942w" sizes="(max-width:900px) 100vw, 50vw" width="942" height="1570" alt="Roni Romano de blusa preta, sentado, sorrindo, em estúdio escuro" fetchpriority="high">
   </figure>
 </section>
-
-<div class="faixa" aria-hidden="true">
-  <div class="faixa__trilho">
-    <ul><li>Corte visagista</li><li>Morena iluminada</li><li>Loiros</li><li>Coloração pessoal</li><li>Noivas</li><li>Maquiagem</li><li>Tratamentos Redken</li></ul>
-    <ul><li>Corte visagista</li><li>Morena iluminada</li><li>Loiros</li><li>Coloração pessoal</li><li>Noivas</li><li>Maquiagem</li><li>Tratamentos Redken</li></ul>
-  </div>
-</div>
 
 <section class="secao manifesto">
   <div class="caixa">
@@ -204,15 +197,17 @@
       </div>
     </div>
     <div class="bastidores">
-      <figure class="revela"><img src="assets/img/bast-1-640.webp" width="640" height="800" alt="Roni com cliente ruiva no salão" loading="lazy"></figure>
+      <figure class="revela"><img src="assets/img/roni-entrevista-640.webp" width="640" height="800" alt="Roni entrevistado no palco do Hair Show, ao lado de nomes do setor" loading="lazy"></figure>
       <figure class="revela" style="--d:1"><img src="assets/img/roni-palco-640.webp" width="640" height="800" alt="Roni no palco do Hair Show, do Hair Summit" loading="lazy"></figure>
-      <figure class="revela" style="--d:2"><img src="assets/img/bast-4-640.webp" width="640" height="800" alt="Roni ajeitando as ondas de uma cliente loira" loading="lazy"></figure>
+      <figure class="revela" style="--d:2"><img src="assets/img/roni-premiacao-640.webp" width="640" height="800" alt="Roni no encerramento do Hair Show, com apresentadores e convidados" loading="lazy"></figure>
       <figure class="revela" style="--d:3"><img src="assets/img/roni-hairshow-640.webp" width="640" height="800" alt="Roni nos bastidores do Hair Show, com modelos ao fundo" loading="lazy"></figure>
     </div>
   </div>
 </section>
 
-<section class="secao escuro" id="agendar">
+<section class="secao escuro agendar-fundo" id="agendar">
+  <canvas class="fumaca-leve" id="fumaca-agendar" aria-hidden="true"></canvas>
+  <video class="fumaca-leve fumaca-leve--video" id="fumaca-agendar-video" muted loop playsinline webkit-playsinline disablepictureinpicture preload="none" data-src="assets/video/fumaca-celular.mp4?v=20261026" aria-hidden="true"></video>
   <div class="caixa agendar">
     <div>
       <p class="chapeu revela">Agendamento</p>
@@ -294,7 +289,7 @@
   <button class="prox" type="button" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
 </div>
 <!--/RODAPE-->
-<script src="assets/fumaca.js?v=2" defer></script>
-<script src="assets/site.js?v=3" defer></script>
+<script src="assets/fumaca.js?v=20261026" defer></script>
+<script src="assets/site.js?v=20261026" defer></script>
 </body>
 </html>

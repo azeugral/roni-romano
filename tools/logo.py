@@ -43,20 +43,40 @@ def main():
     altura(nome, 72).save(IMG / "logo-nome.png", optimize=True)
     completo.resize((1000, round(completo.height * 1000 / completo.width)), Image.LANCZOS).save(IMG / "logo.png", optimize=True)
 
-    # favicons: monograma dourado no café
-    def icone(tam, margem=.16):
-        fundo = Image.new("RGBA", (tam, tam), CAFE + (255,))
-        lado = round(tam * (1 - 2 * margem))
+    # favicons: monograma dourado em quadrado preto de cantos arredondados, com luz leve no
+    # centro e filete dourado por dentro da borda (o filete some abaixo de 64 px, onde vira ruído)
+    px = np.array(rr)
+    ouro = tuple(int(c) for c in px[px[:, :, 3] > 200][:, :3].mean(0))
+
+    def icone(tam, margem=.2, arredondado=True):
+        S = 4  # desenha em 4x e reduz, para a curva e o filete saírem lisos
+        T = tam * S
+        y, x = np.mgrid[0:T, 0:T] / (T - 1) - .5
+        luz = np.clip(1 - np.hypot(x, y * 1.15) / .75, 0, 1) ** 1.6
+        base = np.array([8, 7, 6]) + luz[..., None] * np.array([22, 18, 14])
+        fundo = Image.fromarray(np.dstack([base, np.full((T, T), 255)]).astype("uint8"), "RGBA")
+        raio = round(T * .23) if arredondado else 0
+        mascara = Image.new("L", (T, T))
+        ImageDraw.Draw(mascara).rounded_rectangle((0, 0, T - 1, T - 1), raio, fill=255)
+        if tam >= 64 and arredondado:  # no iOS o sistema corta os cantos e o filete sairia cortado
+            d = ImageDraw.Draw(fundo)
+            ins = round(T * .045)
+            d.rounded_rectangle((ins, ins, T - 1 - ins, T - 1 - ins), max(raio - ins, 0),
+                                outline=ouro + (120,), width=max(S, round(T * .006)))
+        lado = round(T * (1 - 2 * margem))
         m = rr.copy()
         m.thumbnail((lado, lado), Image.LANCZOS)
+        fundo.alpha_composite(m, ((T - m.width) // 2, (T - m.height) // 2))
+        fundo.putalpha(mascara)
+        out = fundo.resize((tam, tam), Image.LANCZOS)
         if tam <= 48:
-            m = m.filter(ImageFilter.UnsharpMask(radius=1, percent=80, threshold=2))
-        fundo.alpha_composite(m, ((tam - m.width) // 2, (tam - m.height) // 2))
-        return fundo.convert("RGB")
-    icone(32, .1).save(RAIZ / "favicon-32.png")
+            out = out.filter(ImageFilter.UnsharpMask(radius=1, percent=60, threshold=2))
+        return out
+
+    icone(32, .13).save(RAIZ / "favicon-32.png")
     icone(192).save(RAIZ / "favicon-192.png")
-    icone(180).save(RAIZ / "apple-touch-icon.png")
-    icone(48, .1).save(RAIZ / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    icone(180, .2, arredondado=False).convert("RGB").save(RAIZ / "apple-touch-icon.png")  # o iOS arredonda sozinho
+    icone(48, .13).save(RAIZ / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
 
     # prévia de link: foto do hero à direita, logo à esquerda
     W, H = 1200, 630
