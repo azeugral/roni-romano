@@ -54,7 +54,8 @@ def main():
     <p class="lead revela" style="--d:2">Cortes, colorações e maquiagens feitos no salão. Toque em uma foto para ver maior.</p>
   </div>
 </section>
-<section class="secao escuro" style="padding-top:0">
+<section class="secao escuro com-ramo" style="padding-top:0">
+  <span class="ramo ramo-db" aria-hidden="true"></span>
   <div class="caixa">
     <div class="filtros revela" role="group" aria-label="Filtrar trabalhos">{filtros}</div>
     <div class="grade">
